@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Strict CSP -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; 
+                 script-src 'self' 'sha256-hsvWDdMRdkCptezrhkd4dsC9aPo97MEMsYcdxKP/sSU=' 'sha256-Mhlw8uo84NWLE4DeF7hSxXkg2iLRXgqnl1Ccv8Y82uc=' 'sha384-fuyr+If8x+peBX2C1d6ZlsXMT2XXYkrxpqzpJ5hmKYXYZqNSVL8AtxtfLj2iYxte' 'sha384-U7s/h62w1IlK7ZFuSysdOohFqUbhy5SzslpcVB95NPX3aO/piObfH5vXPR+N6UTC' 'sha384-xLb64E7iU3PAWJgTpkQT+1SNDB3ujFOkT5xYO9fNvURQWhypz8F5tAfIE+rPMQDU' 'sha384-gYDGwilI4SN9on7qGeoi12yv/TiDRVvyBMn/GW7hJHgMB6kkJLZzWFjAJt/sQOm4'; 
+                 style-src 'self';">
+
+  <title>Sensitive Data Encryption</title>
+
+  <!-- Fonts: System UI -->
+
+  <!-- Core Libraries -->
+  <!-- Downgraded to v13.11.4 for compatibility with de/fr plugins -->
+  <!-- NLP: French (Load & Rename) -->
+  <script src="https://unpkg.com/fr-compromise@0.2.8/builds/fr-compromise.min.js"
+    integrity="sha384-fuyr+If8x+peBX2C1d6ZlsXMT2XXYkrxpqzpJ5hmKYXYZqNSVL8AtxtfLj2iYxte"
+    crossorigin="anonymous"></script>
+  <script>window.nlpFr = window.nlp; window.nlp = undefined;</script>
+
+  <!-- NLP: German (Load & Rename) -->
+  <script src="https://unpkg.com/de-compromise@0.0.10/builds/de-compromise.min.js"
+    integrity="sha384-U7s/h62w1IlK7ZFuSysdOohFqUbhy5SzslpcVB95NPX3aO/piObfH5vXPR+N6UTC"
+    crossorigin="anonymous"></script>
+  <script>window.nlpDe = window.nlp; window.nlp = undefined;</script>
+
+  <!-- NLP: English (Main) -->
+  <script src="https://unpkg.com/compromise@14.14.5/builds/compromise.js"
+    integrity="sha384-xLb64E7iU3PAWJgTpkQT+1SNDB3ujFOkT5xYO9fNvURQWhypz8F5tAfIE+rPMQDU"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.min.js"
+    integrity="sha384-gYDGwilI4SN9on7qGeoi12yv/TiDRVvyBMn/GW7hJHgMB6kkJLZzWFjAJt/sQOm4"
+    crossorigin="anonymous"></script>
+
+  <!-- Local Assets -->
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+
+  <div class="app-container">
+
+    <header>
+      <h1>Sensitive Data Encryption</h1>
+      <p class="subtitle">Secure, ephemeral in-browser sensitive data encryption</p>
+    </header>
+
+    <!-- BLOCK 1: Encryption Workspace -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path
+              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+            </path>
+          </svg>
+          Encryption Workspace
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="editor-grid">
+          <div class="editor-col">
+            <div class="col-label">
+              Plaintext Input
+              <span class="label-hint">(Auto-masks sensitive
+                terms)</span>
+            </div>
+            <div class="editor-wrapper">
+              <div id="hl-layer-1" class="editor-highlight" aria-hidden="true"></div>
+              <textarea spellcheck="false" id="in-plain-1" class="editor-input"
+                placeholder="Type here. Names (like 'Alice') and custom words will be automatically encrypted..."></textarea>
+            </div>
+          </div>
+
+          <div class="editor-col">
+            <div class="col-label">
+              Encrypted Output
+              <button class="copy-btn" id="copy-enc-1">Copy</button>
+            </div>
+            <div class="editor-wrapper">
+              <textarea spellcheck="false" id="out-enc-1" class="editor-input readonly-area" readonly
+                placeholder="Resulting encrypted text..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOCK 2: Decryption Workspace -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z">
+            </path>
+          </svg>
+          Decryption Workspace
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="editor-grid">
+          <div class="editor-col">
+            <div class="col-label">
+              Paste Encrypted Text
+            </div>
+            <div class="editor-wrapper editor-wrapper-short">
+              <textarea id="in-enc-2" class="editor-input" placeholder="Paste [ENC]... text here"></textarea>
+            </div>
+          </div>
+
+          <div class="editor-col">
+            <div class="col-label">
+              Decrypted Result
+              <button class="copy-btn" id="copy-plain-2">Copy</button>
+            </div>
+            <div class="editor-wrapper editor-wrapper-short">
+              <textarea spellcheck="false" id="out-plain-2" class="editor-input readonly-area" readonly
+                placeholder="Readable text..."></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BLOCK 3: Configuration (Dictionary) -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+            </path>
+            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          Privacy Dictionary & Settings
+        </div>
+        <div>
+          <button class="btn-outline btn-sm" id="clear-custom-btn">Clear Words</button>
+        </div>
+      </div>
+      <div class="card-body settings-area">
+
+        <span class="settings-label">1. Auto-Detect Categories</span>
+        <div class="pos-container" id="pos-list">
+          <!-- JS Injects -->
+        </div>
+
+        <div class="settings-divider"></div>
+
+        <span class="settings-label">Custom Watchlist</span>
+        <p class="helper-text">
+          Words matching below will be <span class="helper-highlight-example">red underlined</span> and encrypted.
+        </p>
+
+        <div class="input-group">
+          <input type="text" id="custom-add-input" placeholder="Type a sensitive word (e.g. 'ProjectX')...">
+          <button class="btn-primary" id="custom-add-btn">Add Word</button>
+          <button class="btn-outline" id="add-selection-btn">Add Selection</button>
+        </div>
+
+        <div class="chips-container" id="custom-list">
+          <span class="empty-state">No custom words loaded.</span>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

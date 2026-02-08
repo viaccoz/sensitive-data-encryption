@@ -1,0 +1,433 @@
+:root {
+  /* Palette */
+  --primary: #4f46e5;
+  /* Indigo 600 */
+  --primary-hover: #4338ca;
+  /* Indigo 700 */
+  --bg-page: #f8fafc;
+  /* Slate 50 */
+  --bg-card: #ffffff;
+  --text-main: #0f172a;
+  /* Slate 900 */
+  --text-muted: #64748b;
+  /* Slate 500 */
+  --border-color: #e2e8f0;
+  /* Slate 200 */
+  --highlight-bg: transparent;
+  --highlight-text: #dc2626;
+  /* Red 600 */
+  --success-bg: #dcfce7;
+  --success-text: #166534;
+
+  /* Spacing & Radius */
+  --radius: 12px;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  padding: 40px 20px;
+  line-height: 1.5;
+}
+
+.app-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.025em;
+  background: linear-gradient(135deg, #4f46e5, #ec4899);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+p.subtitle {
+  color: var(--text-muted);
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fdfdfd;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-body {
+  padding: 24px;
+}
+
+/* Custom Words Section (Dictionary) */
+.settings-area {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.input-group {
+  display: flex;
+  gap: 10px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+input[type="text"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+}
+
+.btn-outline:hover {
+  border-color: var(--text-muted);
+  color: var(--text-main);
+}
+
+.btn-danger-outline {
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+}
+
+.btn-danger-outline:hover {
+  background: #fee2e2;
+  border-color: #fca5a5;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}
+
+.chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 48px;
+  /* reserve space */
+  padding: 8px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  align-items: center;
+}
+
+.chip {
+  background: white;
+  border: 1px solid var(--border-color);
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-main);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.2s ease;
+}
+
+.chip-remove {
+  cursor: pointer;
+  color: #94a3b8;
+  font-weight: bold;
+  font-size: 1.1em;
+  line-height: 1;
+}
+
+.chip-remove:hover {
+  color: #ef4444;
+}
+
+.empty-state {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+  padding-left: 4px;
+}
+
+/* Grid Layout for Encryption/Decryption */
+.editor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .editor-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.editor-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.col-label {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.label-hint {
+  font-size: 0.8em;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+/* Textarea & Highlights */
+.editor-wrapper {
+  position: relative;
+  height: 250px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: white;
+  overflow: hidden;
+  /* Important for alignment */
+}
+
+.editor-wrapper-short {
+  height: 180px;
+}
+
+.editor-wrapper:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.editor-input,
+.editor-highlight {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 16px;
+  border: none;
+  font-family: 'Inter', monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  box-sizing: border-box;
+  background: transparent;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow: auto;
+}
+
+/* The Highlight Layer */
+.editor-highlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+}
+
+.editor-highlight .highlight-word {
+  /* Red Underline */
+  text-decoration: underline;
+  text-decoration-color: var(--highlight-text);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  color: transparent;
+}
+
+/* The Real Input */
+.editor-input {
+  position: relative;
+  z-index: 2;
+  resize: none;
+  outline: none;
+  color: inherit;
+  background: transparent;
+  /* allow seeing behind if needed, but we layer differently */
+}
+
+.editor-input {
+  background: transparent;
+}
+
+.readonly-area {
+  background-color: #f8fafc;
+  color: var(--text-muted);
+}
+
+/* Utilities */
+.copy-btn {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: #eef2ff;
+  color: var(--primary);
+  border: 1px solid #c7d2fe;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  background: #e0e7ff;
+}
+
+.copy-btn.copied {
+  background: var(--success-bg);
+  color: var(--success-text);
+  border-color: #bbf7d0;
+}
+
+/* POS Toggles */
+.pos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.pos-chip {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  background: white;
+  color: var(--text-muted);
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.pos-chip:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.pos-chip.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 2px 4px rgba(79, 70, 229, 0.2);
+}
+
+.settings-divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 20px 0;
+}
+
+.settings-label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  display: block;
+  color: var(--text-main);
+}
+
+.helper-text {
+  margin: 0 0 4px 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.helper-highlight-example {
+  text-decoration: underline;
+  text-decoration-color: #dc2626;
+  /* Hardcoded to match var */
+  text-decoration-thickness: 2px;
+  text-underline-offset: 2px;
+  color: var(--text-main);
+}
+
+/* Key Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
